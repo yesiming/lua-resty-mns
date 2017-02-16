@@ -2,6 +2,8 @@ local setmetatable = setmetatable
 
 local _M = {}
 
+local mt = { __index = _M }
+
 local ok, new_tab = pcall(require, "table.new")
 if not ok then
     new_tab = function (narr, nrec) return {} end
@@ -18,7 +20,7 @@ function _M:new( endpoint, accessid, accesskey, ststoken, connPoolSize = 200, ti
 		connectTimeout = connPoolSize
 	}
 
-	return setmetatable( instance, {__index == _})
+	return setmetatable( instance, mt )
 end
 
 function _M:updateAccessId( accessid, accesskey, ststoken )
